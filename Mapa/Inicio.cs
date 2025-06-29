@@ -13,7 +13,7 @@ namespace Mapa
         {
             Console.BackgroundColor = ConsoleColor.Yellow;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("SISTEMAS CONTRA INCENDIO");
+            Console.WriteLine("SISTEMAS CONTRA INCENDIOS");
             Console.ResetColor();
             Console.WriteLine();
 

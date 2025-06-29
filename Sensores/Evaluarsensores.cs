@@ -9,100 +9,150 @@ namespace Sensores
 {
     public class Evaluarsensores
     {
-        public void Evaluar()
+        public bool Evaluar()
         {
+            bool alerta = false;
             Random r = new Random();
-            int humo = r.Next(0, 100);
-            int temp = r.Next(57, 91);
+            int humo = r.Next(1, 100);
+           
 
+            // Evaluación del humo
             if (humo > 0)
             {
                 if (humo <= 25)
-                    MostrarMensaje("Nivel bajo de humo", humo, ConsoleColor.Green);
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Nivel bajo de humo");
+                    Console.WriteLine($"Porcentaje de humo: {humo}%\n");
+                }
                 else if (humo <= 50)
                 {
-                    MostrarMensaje("Nivel moderado de humo", humo, ConsoleColor.Yellow);
-                    MostrarAdvertencia("Temperatura en aumento", "Sistema de ventilación activado");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Nivel moderado de humo");
+                    Console.WriteLine($"Porcentaje de humo: {humo}%\n");
+
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("Temperatura en aumento");
+                    Console.WriteLine("Sistema de ventilación activado\n");
                 }
                 else if (humo <= 75)
                 {
-                    MostrarMensaje("Nivel alto de humo", humo, ConsoleColor.Red);
-                    MostrarAdvertencia("Evacuar el sector", "Sistema a máxima potencia");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Nivel alto de humo");
+                    Console.WriteLine($"Porcentaje de humo: {humo}%\n");
+                    alerta = true;
+
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("Evacuar el sector");
+                    Console.WriteLine("Sistema a máxima potencia\n");
                 }
                 else
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.WriteLine("Nivel extremo de humo.");
+                    Console.BackgroundColor = ConsoleColor.Black;
                     Console.ResetColor();
                     Thread.Sleep(1000);
 
-                    Console.BackgroundColor = ConsoleColor.Black;
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine($"Porcentaje de humo: {humo}%\n");
                     Thread.Sleep(1000);
 
-                    MostrarAdvertencia("Evacuar personal", "Sistema de ventilación activado");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("Evacuar personal");
+                    Console.WriteLine("Sistema de ventilación activado");
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("LLAMANDO A LOS BOMBEROS\n");
-                    Thread.Sleep(1000);
+                    alerta = true;
+                    Console.Beep(1000, 1500);
+                    Console.Beep(1000, 1500);
                 }
             }
 
-            if (temp >= 57 && temp <= 70)
-                MostrarTemperatura("Temperatura en aumento", temp, ConsoleColor.Magenta);
-            else if (temp > 70 && temp < 80)
-            {
-                MostrarTemperatura("Temperatura alta", temp, ConsoleColor.Red);
-                MostrarAdvertencia("Evacuar personal", null);
-            }
-            else if (temp >= 80)
-            {
-                MostrarTemperatura("Incendio detectado", temp, ConsoleColor.Red);
-                MostrarAdvertencia("Aspersores activados", "Llamando a bomberos");
-                Console.WriteLine($"Temperatura: {temp} °C\n");
-            }
+            Console.ResetColor();
+            Console.WriteLine();
 
-            if (temp >= 57)
+            // Evaluación de temperatura
+            int temperaturaFinal = r.Next(10, 91);
+            int temperaturaActual = 10;
+
+            while (temperaturaActual <= temperaturaFinal)
             {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.WriteLine($"Temperatura actual: {temperaturaActual} °C");
+                Thread.Sleep(100); // Retardo para simular el aumento gradual
+                temperaturaActual += r.Next(1, 5); // Incrementar gradualmente para que no sea raro
+            }
+            Console.WriteLine();
+
+            // Temperatura final
+            int temp = temperaturaFinal;
+
+            if (temp >= 57 && temp <= 65)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Temperatura baja");
+                Console.WriteLine($"Temperatura final: {temp} °C\n");
+            }
+            else if (temp > 65 && temp <= 75)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Temperatura moderada");
+                Console.WriteLine($"Temperatura final: {temp} °C\n");
+
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Posible riesgo de incendio");
+                Console.WriteLine("Sistema de enfriamiento activado\n");
+            }
+            else if (temp > 75 && temp <= 85)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Temperatura alta");
+                Console.WriteLine($"Temperatura final: {temp} °C\n");
+                alerta = true;
+
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Evacuar el sector");
+                Console.WriteLine("Sistema a máxima potencia\n");
+
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("[ALERTA]");
                 Console.Beep(1000, 1500);
                 Console.Beep(1000, 1500);
             }
-            else
+            else if (temp < 57)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Todo funcionando correctamente.\n");
+                Console.WriteLine("Temperatura baja");
+                Console.WriteLine($"Temperatura final: {temp} °C\n");
+            }
+            else // temp > 85
+            {
+                Console.BackgroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.WriteLine("Temperatura crítica detectada.");
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ResetColor();
+                Thread.Sleep(1000);
+
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine($"Temperatura final: {temp} °C\n");
+                Thread.Sleep(1000);
+
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("Incendio activo");
+                Console.WriteLine("Aspersores activados - Llamando a bomberos\n");
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("[ALERTA MÁXIMA]");
+                alerta = true;
+                Console.Beep(1000, 1500);
+                Console.Beep(1000, 1500);
             }
 
             Console.ResetColor();
-        }
-
-        private static void MostrarMensaje(string mensaje, int humo, ConsoleColor color)
-        {
-            Console.ForegroundColor = color;
-            Console.WriteLine(mensaje);
-            Console.WriteLine($"Porcentaje de humo: {humo}%\n");
-            Console.ResetColor();
-        }
-
-        private static void MostrarAdvertencia(string advertencia, string extra)
-        {
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine(advertencia);
-            if (!string.IsNullOrEmpty(extra))
-                Console.WriteLine(extra);
-            Console.ResetColor();
-            Thread.Sleep(1000);
-        }
-
-        private static void MostrarTemperatura(string mensaje, int temp, ConsoleColor color)
-        {
-            Console.ForegroundColor = color;
-            Console.WriteLine($"{mensaje}. Temperatura actual: {temp} °C\n");
-            Thread.Sleep(1000);
-            Console.ResetColor();
+            return alerta;
         }
     }
 }

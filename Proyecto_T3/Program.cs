@@ -9,7 +9,7 @@ using Sensores;
 
 namespace Proyecto_T3
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -28,7 +28,7 @@ namespace Proyecto_T3
                 Console.WriteLine();
                 Console.WriteLine("1. Revisar mapa o croquis");
                 Thread.Sleep(300);
-                Console.WriteLine("2. Revisar los sensores y zonas afectas");
+                Console.WriteLine("2. Revisar los sensores y zonas afectadas");
                 Thread.Sleep(300);
                 Console.WriteLine("0. Salir");
                 Thread.Sleep(300);
@@ -38,7 +38,7 @@ namespace Proyecto_T3
                 {
                     case 0:
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.WriteLine("Gracias por usar el Sistema Contra incendios de la empresa LUNASELTER");
+                        Console.WriteLine("Gracias por usar el Sistema Contra incendios de la empresa LUNATSELDER");
                         Console.ForegroundColor = ConsoleColor.Gray;
                         return;
                     case 1:
@@ -56,35 +56,55 @@ namespace Proyecto_T3
                         break;
                     case 2:
                         
-                        //mapa.Croquis();
-                        //Console.Clear();
+                        
                         diseño.MostrarEncabezado();
 
-                        string[] zonas = { "ÁREA DE TRATAMIENTO DE GAS", "ÁREA DE DESCANSO", "ÁREA DE OFICINAS" };
+                        string[] zonas = { "ÁREA DE TRATAMIENTO DE GAS", "ÁREA DE DESCANSO", "OFICINAS" };
 
                         foreach (string zona in zonas)
                         {
                             Console.Clear();
                             diseño.MostrarZona(zona);
 
-                            for (int i = 0; i < 2; i++)
-                            {
-                                Console.ForegroundColor = ConsoleColor.White;
-                                Console.WriteLine($"Sensor {i + 1}\n");
-                                sensores.Evaluar();
-                                Console.WriteLine();
-                            }
+                            bool alerta1 = false;
+                            bool alerta2 = false;
+
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine($"Sensor 1\n");
+                            alerta1 = sensores.Evaluar();
+                            Console.WriteLine();
+
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.WriteLine($"Sensor 2\n");
+                            alerta2 = sensores.Evaluar();
+                            Console.WriteLine();
 
                             Console.ReadKey();
                             Console.Clear();
-                        }
 
+                            // Mostrar el croquis de la zona con sensores coloreados
+                            switch (zona.ToUpper())
+                            {
+                                case "ÁREA DE TRATAMIENTO DE GAS":
+                                    mapa.Area1(alerta1, alerta2);
+                                    break;
+                                case "ÁREA DE DESCANSO":
+                                    mapa.Area2(alerta1, alerta2);
+                                    break;
+                                case "OFICINAS":
+                                    mapa.Area3(alerta1, alerta2);
+                                    break;
+                            }
+
+                            Console.WriteLine("\nPresione ENTER para continuar...");
                             Console.ReadKey();
+                            Console.Clear();
+                        }
                         Console.Clear();
                         Console.WriteLine("SALIENDO DEL SISTEMA...");
                         Console.WriteLine();
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
-                        Console.WriteLine("Gracias por usar el Sistema Contra incendios de la empresa LUNASELTER");
+                        Console.WriteLine("Gracias por usar el Sistema Contra incendios de la empresa LUNATSELDER");
                         Console.ForegroundColor = ConsoleColor.Gray;
                         return;
                     default:
