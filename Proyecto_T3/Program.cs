@@ -57,7 +57,7 @@ namespace Proyecto_T3
                     case 2:
 
 
-                        List<bool> alertasSensor1 = new List<bool>();
+                        List<bool> alertasSensor1 = new List<bool>(); //este guarda los valores True o false de las alertas
                         List<bool> alertasSensor2 = new List<bool>();
                         List<string> nombresZonas = new List<string>() { "ÁREA DE TRATAMIENTO DE GAS", "ÁREA DE DESCANSO", "OFICINAS" };
 

@@ -35,7 +35,7 @@ namespace Mapa
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine();
             Console.WriteLine(new string('+', 40));
-            Console.WriteLine($"      {zona.ToUpper()}");
+            Console.WriteLine($"        {zona.ToUpper()}");
             Console.WriteLine(new string('+', 40));
             Console.ResetColor();
             Console.WriteLine();

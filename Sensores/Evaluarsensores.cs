@@ -74,8 +74,8 @@ namespace Sensores
             Console.WriteLine();
 
             // Evaluación de temperatura
-            int temperaturaFinal = r.Next(10, 91);
-            int temperaturaActual = 10;
+            int temperaturaFinal = r.Next(10, 91); 
+            int temperaturaActual = 10; 
 
             while (temperaturaActual <= temperaturaFinal)
             {
@@ -154,7 +154,7 @@ namespace Sensores
                 Console.Beep(1000, 1500);
             }
             Console.ResetColor();
-            return alerta;
+            return alerta; //esto debe retornar un booleano ya que el metodo es un bool (en esta caso alerta que es el bool que maneja todos los condicionales)
         }
     }
 }
