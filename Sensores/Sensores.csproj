@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="Evaluarsensores.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resultados.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
