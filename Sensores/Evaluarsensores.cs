@@ -14,7 +14,6 @@ namespace Sensores
             bool alerta = false;
             Random r = new Random();
             int humo = r.Next(1, 100);
-           
 
             // Evaluación del humo
             if (humo > 0)
@@ -45,6 +44,8 @@ namespace Sensores
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("Evacuar el sector");
                     Console.WriteLine("Sistema a máxima potencia\n");
+                    Console.Beep(1000, 1500);
+                    Console.Beep(1000, 1500);
                 }
                 else
                 {
@@ -52,9 +53,8 @@ namespace Sensores
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.WriteLine("Nivel extremo de humo.");
                     Console.BackgroundColor = ConsoleColor.Black;
-                    Console.ResetColor();
                     Thread.Sleep(1000);
-
+                    Console.BackgroundColor = ConsoleColor.Black;
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine($"Porcentaje de humo: {humo}%\n");
                     Thread.Sleep(1000);
@@ -107,7 +107,9 @@ namespace Sensores
             }
             else if (temp > 75 && temp <= 85)
             {
+               
                 Console.ForegroundColor = ConsoleColor.Red;
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.WriteLine("Temperatura alta");
                 Console.WriteLine($"Temperatura final: {temp} °C\n");
                 alerta = true;
@@ -123,6 +125,7 @@ namespace Sensores
             }
             else if (temp < 57)
             {
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Temperatura baja");
                 Console.WriteLine($"Temperatura final: {temp} °C\n");
@@ -133,14 +136,14 @@ namespace Sensores
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.WriteLine("Temperatura crítica detectada.");
                 Console.BackgroundColor = ConsoleColor.Black;
-                Console.ResetColor();
                 Thread.Sleep(1000);
-
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine($"Temperatura final: {temp} °C\n");
                 Thread.Sleep(1000);
 
                 Console.ForegroundColor = ConsoleColor.Blue;
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.WriteLine("Incendio activo");
                 Console.WriteLine("Aspersores activados - Llamando a bomberos\n");
 
@@ -150,7 +153,6 @@ namespace Sensores
                 Console.Beep(1000, 1500);
                 Console.Beep(1000, 1500);
             }
-
             Console.ResetColor();
             return alerta;
         }

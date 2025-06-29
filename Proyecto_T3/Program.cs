@@ -55,34 +55,35 @@ namespace Proyecto_T3
                         Console.Clear();
                         break;
                     case 2:
-                        
-                        
-                        diseño.MostrarEncabezado();
 
-                        string[] zonas = { "ÁREA DE TRATAMIENTO DE GAS", "ÁREA DE DESCANSO", "OFICINAS" };
 
-                        foreach (string zona in zonas)
+                        List<bool> alertasSensor1 = new List<bool>();
+                        List<bool> alertasSensor2 = new List<bool>();
+                        List<string> nombresZonas = new List<string>() { "ÁREA DE TRATAMIENTO DE GAS", "ÁREA DE DESCANSO", "OFICINAS" };
+
+                        foreach (string zona in nombresZonas)
                         {
                             Console.Clear();
                             diseño.MostrarZona(zona);
 
-                            bool alerta1 = false;
-                            bool alerta2 = false;
-
                             Console.ForegroundColor = ConsoleColor.White;
                             Console.WriteLine($"Sensor 1\n");
-                            alerta1 = sensores.Evaluar();
+                            bool alerta1 = sensores.Evaluar();
+
                             Console.WriteLine();
 
                             Console.ForegroundColor = ConsoleColor.White;
                             Console.WriteLine($"Sensor 2\n");
-                            alerta2 = sensores.Evaluar();
+                            bool alerta2 = sensores.Evaluar();
+
                             Console.WriteLine();
+
+                            alertasSensor1.Add(alerta1);
+                            alertasSensor2.Add(alerta2);
 
                             Console.ReadKey();
                             Console.Clear();
 
-                            // Mostrar el croquis de la zona con sensores coloreados
                             switch (zona.ToUpper())
                             {
                                 case "ÁREA DE TRATAMIENTO DE GAS":
@@ -100,6 +101,42 @@ namespace Proyecto_T3
                             Console.ReadKey();
                             Console.Clear();
                         }
+
+                        // Mostrar resumen
+                        Console.Clear();
+                        Console.WriteLine("----- RESUMEN DE ESTADOS POR ZONA -----\n");
+
+                        for (int i = 0; i < nombresZonas.Count; i++)
+                        {
+                            string zona = nombresZonas[i];
+                            bool a1 = alertasSensor1[i];
+                            bool a2 = alertasSensor2[i];
+
+                            string mensajeEstado;
+
+                            if (a1 && a2)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                mensajeEstado = "ALTO RIESGO - EVACUACION";
+                            }
+                            else if (a1 || a2)
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                mensajeEstado = "Riesgo de incendio - Precauciones";
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                mensajeEstado = "Estado normal - Mantener la calma";
+                            }
+
+                            Console.WriteLine($"{zona}: {mensajeEstado}");
+                            Console.ResetColor();
+                        }
+
+                        Console.WriteLine("\nPresione ENTER para salir...");
+                        Console.ReadKey();
+
                         Console.Clear();
                         Console.WriteLine("SALIENDO DEL SISTEMA...");
                         Console.WriteLine();
@@ -116,9 +153,11 @@ namespace Proyecto_T3
                         Console.ResetColor();
                         break;
                 }
+
             }
             while (true);
         }
+
     }
 }
 
