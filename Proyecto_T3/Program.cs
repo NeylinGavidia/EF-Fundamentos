@@ -17,6 +17,7 @@ namespace Proyecto_T3
             Minicial mapa = new Minicial();
             Inicio diseño = new Inicio();
             Evaluarsensores sensores = new Evaluarsensores();
+            Console.Title = "Sistema Contra Incendios - SCI";
             do
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
